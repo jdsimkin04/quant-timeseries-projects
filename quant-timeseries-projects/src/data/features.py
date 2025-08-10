@@ -31,8 +31,7 @@ def make_sequences(df, feature_cols, target_col, lookback=60, horizon=1, return_
     X = np.array(X)
     y = np.array(y)
     if return_index:
-        return X, Y, pd.DatetimeIndex(idx)
+        return X, y, pd.DatetimeIndex(idx)
     else
         return X, y
 
-    return np.array(sequences), np.array(targets)
