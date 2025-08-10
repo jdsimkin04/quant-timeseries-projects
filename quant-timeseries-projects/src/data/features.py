@@ -1,4 +1,4 @@
-import panas as pd
+import pandas as pd
 import numpy as np
 
 def add_targets(df):
@@ -8,7 +8,7 @@ def add_targets(df):
     return df
 
 def make_sequences(df, feature_cols, target_col, lookback=60, horizon=1):
-    x, y , idx = [], [], []
+    X, y , idx = [], [], []
 
     #loop through the dataframe to create sequences
 
@@ -23,15 +23,15 @@ def make_sequences(df, feature_cols, target_col, lookback=60, horizon=1):
         if df.index[i + lookback + horizon - 1] <= df.index[i + lookback - 1]:
             raise ValueError("Data leakage detected: target value is from the future relative to the sequence.")
 
-        x.append(seq_x)
+        X.append(seq_x)
         y.append(seq_y)
         if return_index:
             idx.append(df.index[i + lookback - 1])
 
-        x = np.array(x)
-        y = np.array(y)
-        if return_index:
-            return: x, y, pd.DatetimeIndex(idx)
-        return x, y
+    X = np.array(X)
+    y = np.array(y)
+    if return_index:
+        return X, Y, pd.DatetimeIndex(idx)
+    return X, y
 
     return np.array(sequences), np.array(targets)
