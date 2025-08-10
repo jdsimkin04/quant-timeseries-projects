@@ -3,11 +3,11 @@ import numpy as np
 
 def add_targets(df):
     #log return calc
-    df['log_return'] = np.log(df['Adj Close'] / df['Adj Close'].shift(1))
+    df['log_return'] = np.log(df['Close'] / df['Close'].shift(1))
     df['vol_park'] = np.sqrt((1/4*np.log(2))* (np.log(df['High']/ df['Low']))**2)
     return df
 
-def make_sequences(df, feature_cols, target_col, lookback=60, horizon=1):
+def make_sequences(df, feature_cols, target_col, lookback=60, horizon=1, return_index=True):
     X, y , idx = [], [], []
 
     #loop through the dataframe to create sequences
@@ -32,6 +32,7 @@ def make_sequences(df, feature_cols, target_col, lookback=60, horizon=1):
     y = np.array(y)
     if return_index:
         return X, Y, pd.DatetimeIndex(idx)
-    return X, y
+    else
+        return X, y
 
     return np.array(sequences), np.array(targets)
